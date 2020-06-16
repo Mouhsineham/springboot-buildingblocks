@@ -21,17 +21,18 @@ import java.util.Optional;
 
 @RestController
 @Validated
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users")
+    @GetMapping
     public List<User>  getAllUsers(){
         return  userService.getAllUsers();
     }
 
-    @PostMapping("/users")
+    @PostMapping
     public ResponseEntity<Void> createUser(@Valid  @RequestBody User user, UriComponentsBuilder builder) {
         try {
             userService.createUser(user);
@@ -45,7 +46,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public Optional<User> getUserById(@PathVariable("id") @Min(1) Long id){
         try {
             return userService.getUserById(id);
@@ -54,7 +55,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/{id}")
     public  User  updateUserById(@PathVariable("id") Long id, @RequestBody User user){
         try {
             return userService.updateUserById(id, user);
@@ -63,12 +64,12 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     public  void  deleteUserById(@PathVariable("id") Long id){
             userService.deleteUserById(id);
     }
 
-    @GetMapping("/users/byusername/{username}")
+    @GetMapping("/byusername/{username}")
     public  User  getUserByUserName(@PathVariable("username") String username) throws UserNameNotFoundException{
         User user = userService.getUserByUserName(username);
         if (user == null){

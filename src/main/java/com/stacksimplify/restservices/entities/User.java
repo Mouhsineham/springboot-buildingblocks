@@ -1,9 +1,12 @@
 package com.stacksimplify.restservices.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -26,10 +29,13 @@ public class User {
     @Column(name ="SSN", length = 50, nullable = false, unique = true)
     private String ssn;
 
+    @OneToMany(mappedBy = "user")
+    private List<Order> order;
+
     public User() {
     }
 
-    public User(Long  id, String username, String firstname, String lastname, String email, String role, String ssn) {
+    public User(Long  id, String username, String firstname, String lastname, String email, String role, String ssn,List<Order> orders) {
         this.id=id;
         this.username = username;
         this.firstname = firstname;
@@ -37,6 +43,7 @@ public class User {
         this.email = email;
         this.role = role;
         this.ssn = ssn;
+        this.order=orders;
     }
     //18 344
 
@@ -62,6 +69,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", role='" + role + '\'' +
                 ", ssn='" + ssn + '\'' +
+                ", order=" + order +
                 '}';
     }
 
@@ -107,5 +115,13 @@ public class User {
 
     public void setSsn(String ssn) {
         this.ssn = ssn;
+    }
+
+    public List<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(List<Order> order) {
+        this.order = order;
     }
 }

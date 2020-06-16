@@ -1,10 +1,10 @@
 package com.stacksimplify.restservices.repository;
-import com.stacksimplify.restservices.entities.User;
+
+import com.stacksimplify.restservices.entities.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    User findByUsername(String username);
 }
