@@ -1,19 +1,20 @@
 package com.stacksimplify.restservices.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import org.springframework.hateoas.ResourceSupport;
+
 import java.util.List;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User extends ResourceSupport{
     @Id
     @GeneratedValue
-    private Long id;
+    private Long userid;
     @NotEmpty(message = "Username is Mandatory field. please provide  username")
     @Column(name ="USER_NAME", length = 50, nullable = false, unique = true)
     private String username;
@@ -35,8 +36,8 @@ public class User {
     public User() {
     }
 
-    public User(Long  id, String username, String firstname, String lastname, String email, String role, String ssn,List<Order> orders) {
-        this.id=id;
+    public User(Long  userid, String username, String firstname, String lastname, String email, String role, String ssn,List<Order> orders) {
+        this.userid=userid;
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -47,12 +48,12 @@ public class User {
     }
     //18 344
 
-    public Long getId() {
-        return id;
+    public Long getUserid() {
+        return userid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long userid) {
+        this.userid = userid;
     }
 
     public String getUsername() {
@@ -62,7 +63,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "userid=" + userid +
                 ", username='" + username + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
