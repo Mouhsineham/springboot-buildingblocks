@@ -58,27 +58,30 @@ public class UserHateoasController {
     
     
 
-    @GetMapping
-    public Resources<User>  getAllUsers() throws UserNotFoundException{
-    List<User> allusers = userService.getAllUsers();
-    for (User user: allusers) {
-    	//Self link
-    	Long userid = user.getUserid();
-    	Link selflink= ControllerLinkBuilder.linkTo(this.getClass()).slash(userid).withSelfRel();
-    	user.add(selflink);
-    	
-    	//Relationship link with getAllOrders
-    	Resources<Order> orders = ControllerLinkBuilder.methodOn(OrderHateoasController.class).getAllOrders(userid);
-    	Link orderslink = ControllerLinkBuilder.linkTo(orders).withRel("all-orders");
-    	user.add(orderslink);
- 	
+
+	@GetMapping
+	public Resources<User> getAllUsers() throws UserNotFoundException {
+		List<User> allusers = userService.getAllUsers();
+		for (User user : allusers) {
+			// Self link
+			Long userid = user.getUserid();
+			Link selflink = ControllerLinkBuilder.linkTo(this.getClass()).slash(userid).withSelfRel();
+			user.add(selflink);
+
+			// Relationship link with getAllOrders
+			Resources<Order> orders = ControllerLinkBuilder.methodOn(OrderHateoasController.class).getAllOrders(userid);
+			Link orderslink = ControllerLinkBuilder.linkTo(orders).withRel("all-orders");
+			user.add(orderslink);
+
+		}
+		// self link for getAllUsers
+		Link selfLinkGetAllUsers = ControllerLinkBuilder.linkTo(this.getClass()).withSelfRel();
+		Resources<User> finalResources = new Resources<User>(allusers, selfLinkGetAllUsers);
+
+		return finalResources;
 	}
-    //self link for getAllUsers
-    Link selfLinkGetAllUsers = ControllerLinkBuilder.linkTo(this.getClass()).withSelfRel();
-    Resources<User> finalResources = new Resources<User>(allusers,selfLinkGetAllUsers);
     
-        return  finalResources;
-    }
-	
+    
+
 
 }
