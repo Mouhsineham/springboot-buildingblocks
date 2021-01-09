@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import javax.validation.constraints.Min;
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

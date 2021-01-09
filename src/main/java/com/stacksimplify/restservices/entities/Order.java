@@ -1,6 +1,7 @@
 package com.stacksimplify.restservices.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 
@@ -11,7 +12,10 @@ import org.springframework.hateoas.ResourceSupport;
 public class Order extends ResourceSupport{
     @Id
     @GeneratedValue
+    @JsonView(Views.Internal.class)
     private Long orderid;
+    
+    @JsonView(Views.Internal.class)
     private String orderdescription;
 
     @ManyToOne(fetch = FetchType.EAGER)
