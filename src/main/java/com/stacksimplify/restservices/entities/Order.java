@@ -14,7 +14,7 @@ public class Order extends ResourceSupport{
     private Long orderid;
     private String orderdescription;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
     private User user;
 
