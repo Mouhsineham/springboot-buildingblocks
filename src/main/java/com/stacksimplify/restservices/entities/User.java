@@ -7,10 +7,15 @@ import javax.validation.constraints.Size;
 
 import org.springframework.hateoas.ResourceSupport;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
 @Entity
 @Table(name = "user")
+//Ignore multiple fields
+@JsonIgnoreProperties({"username", "firstname"})
 public class User extends ResourceSupport{
     @Id
     @GeneratedValue
@@ -27,7 +32,9 @@ public class User extends ResourceSupport{
     private String email;
     @Column(name ="ROLE", length = 50, nullable = false)
     private String role;
-    @Column(name ="SSN", length = 50, nullable = false, unique = true)
+    @Column(name ="SSN", length = 50, nullable = true, unique = true)
+    //ignore one field
+    @JsonIgnore
     private String ssn;
 
     @OneToMany(mappedBy = "user")
