@@ -25,27 +25,27 @@ public class User extends ResourceSupport {
 	@GeneratedValue
 	@JsonView(Views.External.class)
 	private Long userid;
-	
+
 	@NotEmpty(message = "Username is Mandatory field. please provide  username")
 	@Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
 	@JsonView(Views.External.class)
 	private String username;
-	
+
 	@Size(min = 2, message = "Firstname should have at least 2 characters")
 	@Column(name = "FIRST_NAME", length = 50, nullable = false)
 	@JsonView(Views.External.class)
 	private String firstname;
-	
+
 	@Column(name = "LAST_NAME", length = 50, nullable = false)
 	private String lastname;
 	@Column(name = "EMAIL_ADDRESS", length = 50, nullable = false)
 	@JsonView(Views.External.class)
 	private String email;
-	
+
 	@Column(name = "ROLE", length = 50, nullable = false)
 	@JsonView(Views.Internal.class)
 	private String role;
-	
+
 	@Column(name = "SSN", length = 50, nullable = false, unique = true)
 	// ignore one field
 	// @JsonIgnore
@@ -56,11 +56,17 @@ public class User extends ResourceSupport {
 	@JsonView(Views.Internal.class)
 	private List<Order> order;
 
+	@Column(name = "ADDRESS")
+	private String address;
+
 	public User() {
 	}
 
-	public User(Long userid, String username, String firstname, String lastname, String email, String role, String ssn,
-			List<Order> orders) {
+	public User(Long userid,
+			@NotEmpty(message = "Username is Mandatory field. please provide  username") String username,
+			@Size(min = 2, message = "Firstname should have at least 2 characters") String firstname, String lastname,
+			String email, String role, String ssn, List<Order> order, String address) {
+		super();
 		this.userid = userid;
 		this.username = username;
 		this.firstname = firstname;
@@ -68,9 +74,9 @@ public class User extends ResourceSupport {
 		this.email = email;
 		this.role = role;
 		this.ssn = ssn;
-		this.order = orders;
+		this.order = order;
+		this.address = address;
 	}
-	// 18 344
 
 	public Long getUserid() {
 		return userid;
@@ -82,13 +88,6 @@ public class User extends ResourceSupport {
 
 	public String getUsername() {
 		return username;
-	}
-
-	@Override
-	public String toString() {
-		return "User{" + "userid=" + userid + ", username='" + username + '\'' + ", firstname='" + firstname + '\''
-				+ ", lastname='" + lastname + '\'' + ", email='" + email + '\'' + ", role='" + role + '\'' + ", ssn='"
-				+ ssn + '\'' + ", order=" + order + '}';
 	}
 
 	public void setUsername(String username) {
@@ -142,4 +141,24 @@ public class User extends ResourceSupport {
 	public void setOrder(List<Order> order) {
 		this.order = order;
 	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setUserid(Long userid) {
+		this.userid = userid;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userid=" + userid + ", username=" + username + ", firstname=" + firstname + ", lastname="
+				+ lastname + ", email=" + email + ", role=" + role + ", ssn=" + ssn + ", order=" + order + ", address="
+				+ address + "]";
+	}
+
 }
