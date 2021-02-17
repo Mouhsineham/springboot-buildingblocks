@@ -23,7 +23,7 @@ import java.util.Optional;
 
 @RestController
 @Validated
-@RequestMapping("/orders")
+@RequestMapping("users/orders")
 public class OrderController {
 
     @Autowired
@@ -61,8 +61,8 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Order> getOrderById(@PathVariable("id") @Min(1) Long id){
-            return orderService.getOrderById(id);
+    public Order getOrderById(@PathVariable("id") @Min(1) Long id){
+            return orderService.getOrderById(id).get();
     }
 
     @PutMapping("/{id}")
